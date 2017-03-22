@@ -1,6 +1,8 @@
 <?php
 /**
  * Template Name: Thank you
+ * Template Post Type: post, page, product
+ * Description: Page template for thanking you
  */
 
 get_header();
@@ -32,11 +34,11 @@ get_header();
 	        $icon = get_sub_field('icon', 'option'); 
 	        $link = get_sub_field('link', 'option'); 
 	?>
-	<a target="_blank" class="social-link" href="<?php echo $link; ?>"><img src="<?php echo $icon; ?>" alt="Social"></a>
+	<a target="_blank" class="social-link" href="<?php echo $link; ?>"><img src="<?php echo esc_url($icon); ?>" alt="Social"></a>
 	<?php 
 		endwhile;
 	else :
-	    // no rows found
+	    // no rows
 	endif;
 	?>
 	<div class="clearfix"></div>

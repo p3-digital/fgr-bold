@@ -203,6 +203,4 @@ get_header();
 get_footer();
 ?>
 
-
-
-xxxxx
+<!--This is a character-->

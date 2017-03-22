@@ -202,3 +202,5 @@ get_header();
 <?php
 get_footer();
 ?>
+
+<!--This is a character-->

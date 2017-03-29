@@ -6,16 +6,11 @@
  */
 
 get_header();
+echo get_template_part( '/assets/template-parts/hero' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase">Contact Us</h1>  	
-		</div>
-	</div>
-</div>
-<h2 class="red-text text-center didot mt mb"><?php the_title(); ?></h2>
-<section class="wrap">
+
+<h2 class="red-text text-center didot"><?php the_title(); ?></h2>
+<section class="wrap-small">
 	<?php 
 	if ( have_posts() ) {
 		while ( have_posts() ) {
@@ -26,27 +21,13 @@ get_header();
 	?>
 </section>
 
-<section class="mt social">
-	<?php
-	//socials
-	if( have_rows('social_icons', 'option') ):
-	    while ( have_rows('social_icons', 'option') ) : the_row();
-	        $icon = get_sub_field('icon', 'option'); 
-	        $link = get_sub_field('link', 'option'); 
-	?>
-	<a target="_blank" class="social-link" href="<?php echo $link; ?>"><img src="<?php echo esc_url($icon); ?>" alt="Social"></a>
-	<?php 
-		endwhile;
-	else :
-	    // no rows
-	endif;
-	?>
-	<div class="clearfix"></div>
-</section>
+<?php
+echo get_template_part( '/assets/template-parts/social' );
+?>
 
 
-<section class="wrap fce-section">
-	<h4 class="text-center uppercase blue-text section-title">Featured Catered Events</h4>
+<section class="wrap-small fce-section text-center">
+	<h4 class="text-center uppercase blue-text section-title">Featured CORPORATE EVENTS</h4>
 	<?php
 	$args = array(
 		'post_type' => 'case_study',
@@ -57,11 +38,30 @@ get_header();
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();?>
 			<div class="col-xs-12 col-sm-4 related-cs">
-				<div class="col-xs-12" style="background-image: url(<?php the_field('hero_image', $post->ID); ?>);">
+				<div class="col-xs-12" style="background-image: url(<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ) ?>);">
 					<div class="overlay">
-						<h5 class="didot white text-center"><?php the_title(); ?></h5>
-						<h6 class="white uppercase text-center">Venue</h6>	
-						<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+						<div class="related-cs-wrap">
+							<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
+							<?php
+							// check if the repeater field has rows of data
+							if( have_rows('sidebar_facts') ):
+	 							// loop through the rows of data
+	    							while ( have_rows('sidebar_facts') ) : the_row();
+
+	        							// display a sub field value
+									$val = get_sub_field('row_title');
+	        							if( $val=='VENUE' ): 
+										?>
+							<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
+										<?php
+									endif;
+	    							endwhile;
+							else :
+	    							// no rows found
+							endif;
+							?>	
+							<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+						</div>
 					</div>
 				</div>
 				<a href="<?php the_permalink(); ?>" class="hidden"><?php the_title(); ?></a>
@@ -71,7 +71,7 @@ get_header();
 	}
 	?>
 	<div class="clearfix"></div>
-	<a href="/portfolio" class="main-btn-blue main-btn-big">VIEW FULL PORTFOLIO</a>
+	<div class="center-btn"><a href="/portfolio" class="main-btn-blue main-btn-big">VIEW FULL PORTFOLIO</a></div>
 </section>
 
 

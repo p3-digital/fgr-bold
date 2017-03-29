@@ -4,24 +4,13 @@
  */
 
 get_header();
+
+echo get_template_part( '/assets/template-parts/hero' );
+echo get_template_part( '/assets/template-parts/two-col' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1> 
-		</div> 	
-	</div>
-</div>
-
-<section class="wrap-small">
-	<h4 class="text-center blue-text uppercase section-title"><?php the_field('tc_section_title'); ?></h4>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('left_column_text'); ?></p></div>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('right_column_text'); ?></p></div>
-</section>
-
 <section class="no-mobile-wrap">
 	<div class="inner-hero" style="background-image: url(<?php the_field('full_width_image');?> );">
-		<h2 class="text-center white didot"><?php the_field('image_overlay_text'); ?></h2>  	
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1"><h2 class="text-center white didot"><?php the_field('image_overlay_text'); ?></h2></div>
 	</div>
 </section>
 
@@ -29,7 +18,7 @@ get_header();
 	<div class="grey-bg pt">
 		<h4 class="text-center ce-title blue-text section-title">DESIGN SERVICES</h4>
 		<!-- tabs -->
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs hidden-sm ">
 			<ul class="nav nav-tabs" role="tablist">
 				<?php
 				$ce = get_field('service');
@@ -63,8 +52,8 @@ get_header();
 					$active = '';
 				}
 		?>
-			<div role="tabpanel" class="tab-pane catering-experience-tab experience-<?php echo $n; ?> <?php echo $active; ?>" id="index-<?php echo $n; ?>">
-				<h3 class="mobile-ce-section-toggle text-center hidden-sm hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
+			<div role="tabpanel" class="tab-pane catering-experience-tab experience-<?php echo $n; ?> " id="index-<?php echo $n; ?>">
+				<h3 class="mobile-ce-section-toggle text-center hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
 				<div class="ce-description">
 					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 						<p><?php echo $description; ?></p>
@@ -103,26 +92,28 @@ get_header();
 			<div class="col-xs-12 col-sm-4 related-cs">
 				<div class="col-xs-12" style="background-image: url(<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ) ?>);">
 					<div class="overlay">
-						<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
-						<?php
-						// check if the repeater field has rows of data
-						if( have_rows('sidebar_facts') ):
- 							// loop through the rows of data
-    							while ( have_rows('sidebar_facts') ) : the_row();
+						<div class="related-cs-wrap">
+							<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
+							<?php
+							// check if the repeater field has rows of data
+							if( have_rows('sidebar_facts') ):
+	 							// loop through the rows of data
+	    							while ( have_rows('sidebar_facts') ) : the_row();
 
-        							// display a sub field value
-								$val = get_sub_field('row_title');
-        							if( $val=='VENUE' ): 
-									?>
-						<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
-									<?php
-								endif;
-    							endwhile;
-						else :
-    							// no rows found
-						endif;
-						?>	
-						<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+	        							// display a sub field value
+									$val = get_sub_field('row_title');
+	        							if( $val=='VENUE' ): 
+										?>
+							<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
+										<?php
+									endif;
+	    							endwhile;
+							else :
+	    							// no rows found
+							endif;
+							?>	
+							<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+						</div>
 					</div>
 				</div>
 				<a href="<?php the_permalink(); ?>" class="hidden"><?php the_title(); ?></a>
@@ -136,10 +127,10 @@ get_header();
 </section>
 
 
-<section class="wrap">
-	<div class="grey-bg section">
-		<h4 class="text-center red-text section-title"><?php the_field('cta_section_title'); ?></h4>
-		<div class="wrap-small mb">
+<section class="section">
+	<div class="grey-bg no-mobile-wrap pb">
+		<h4 class="text-center red-text section-title wrap-small no-pt"><?php the_field('cta_section_title'); ?></h4>
+		<div class="wrap-small no-pt">
 			<p class="text-center"><?php the_field('content'); ?></p>
 		</div>
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">

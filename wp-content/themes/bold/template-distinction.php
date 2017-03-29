@@ -4,20 +4,10 @@
  */
 
 get_header();
+echo get_template_part( '/assets/template-parts/hero' );
+echo get_template_part( '/assets/template-parts/two-col' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1>  	
-		</div>
-	</div>
-</div>
 
-<section class="wrap-small">
-	<h4 class="text-center blue-text uppercase section-title"><?php the_field('tc_section_title'); ?></h4>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('left_column_text'); ?></p></div>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('right_column_text'); ?></p></div>
-</section>
 
 <section class="no-mobile-wrap">
 	<div class="red-bg content-callout pb pt wrap">
@@ -30,7 +20,7 @@ get_header();
 	<div class="pt">
 		<h4 class="text-center ce-title blue-text section-title">BOLD OFFERINGS</h4>
 		<!-- tabs -->
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs hidden-sm ">
 			<ul class="nav nav-tabs" role="tablist">
 				<?php
 				$service = get_field('offering');
@@ -64,9 +54,9 @@ get_header();
 		        }
 		?>	
 			<div role="tabpanel" class="tab-pane catering-experience-tab <?php echo $class; ?>" id="index-<?php echo $i; ?>">
-				<h3 class="mobile-ce-section-toggle text-center hidden-sm hidden-md hidden-lg didot"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
+				<h3 class="mobile-ce-section-toggle text-center hidden-md hidden-lg didot"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
 				<div class="wrap-small no-pad">
-					<div class="section no-pad"><?php echo $description; ?></div>
+					<div class="section no-pad"><div class="col-xs-12"><?php echo $description; ?></div></div>
 					<div class="clearfix"></div>
 					<div class="col-xs-12 col-sm-4 offerings-thumb">
 						<img src="<?php the_sub_field('image_1'); ?>" alt="<?php echo $title; ?>">
@@ -78,6 +68,14 @@ get_header();
 						<img src="<?php the_sub_field('image_3'); ?>" alt="<?php echo $title; ?>">
 					</div>
 				</div>
+				<div>
+					<div class="col-xs-12 pb">
+						<div class="center-btn center-multiple">
+							<a class="main-btn-blue" href="<?php the_sub_field('button_1_page'); ?>"><?php the_sub_field('button_1_text'); ?></a>
+							<a class="main-btn-blue" href="<?php the_sub_field('button_2_page'); ?>"><?php the_sub_field('button_2_text'); ?></a>
+						</div>
+					</div>
+				</div>
 			</div>
 			<?php
 			$i++;
@@ -86,14 +84,6 @@ get_header();
 		<?php endwhile; ?>
 		<?php endif; ?>
 	</div>	
-	<div>
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 pb">
-			<div class="center-btn center-multiple">
-				<a class="main-btn-blue" href="<?php the_field('button_1_page'); ?>"><?php the_field('button_1_text'); ?></a>
-				<a class="main-btn-blue" href="<?php the_field('button_2_page'); ?>"><?php the_field('button_2_text'); ?></a>
-			</div>
-		</div>
-	</div>
 </section>
 
 <section class="wrap">

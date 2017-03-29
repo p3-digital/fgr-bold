@@ -4,14 +4,8 @@
  */
 
 get_header();
+echo get_template_part( '/assets/template-parts/hero' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1>  	
-		</div>
-	</div>
-</div>
 
 <section class="wrap-small">
 	<h4 class="text-center blue-text section-title"><?php the_field('pc_section_title'); ?></h4>
@@ -48,9 +42,9 @@ get_header();
 </section>
 
 <section class="no-mobile-wrap">
-	<div class="grey-bg pt pb mt mb">
+	<div class="grey-bg pt pb mt mb pull-left">
 		<div class="wrap-small no-p">
-			<h5 class="blue-text didot text-center"><?php the_field('testimonial'); ?></h5>
+			<h5 class="blue-text didot text-center pl pr"><?php the_field('testimonial'); ?></h5>
 		</div>
 	</div>
 </section>
@@ -59,29 +53,12 @@ get_header();
 	<div class="center-btn"><a target="_blank" href="<?php the_field('current_openings_link'); ?>" class="main-btn-blue main-btn-xl">VIEW CURRENT OPENINGS</a></div>
 </section>
 
-
-<section class="pt social inner-social">
-	<?php
-	//socials
-	if( have_rows('social_icons', 'option') ):
-	    while ( have_rows('social_icons', 'option') ) : the_row();
-	        $icon = get_sub_field('icon', 'option'); 
-	        $active_icon = get_sub_field('active_icon', 'option');
-	        $link = get_sub_field('link', 'option'); 
-	?>
-	<div class="social-icon">
-		<a target="_blank" class="social-link not-active" href="<?php echo $link; ?>"><img src="<?php echo $icon; ?>" alt="Social"></a>
-		<a target="_blank" class="social-link active" href="<?php echo $link; ?>"><img src="<?php echo $active_icon; ?>" alt="Social"></a>
-	</div>
-	<?php 
-		endwhile;
-	endif;
-	?>
-	<div class="clearfix"></div>
-	<h3 class="red-text didot text-center wrap-small"><?php the_field('social_header'); ?></h3> 
-</section>
-
-<section class="wrap-small mt pt">
+<?php
+echo get_template_part( '/assets/template-parts/social' );
+?>
+<div class="clearfix"></div>
+<h3 class="red-text didot text-center wrap-small"><?php the_field('social_header'); ?></h3> 
+<section class="wrap-small mt pt hidden-xs">
 	<?php echo do_shortcode('[instagram-feed id="boldamericanevents"]'); ?>
 </section>
 

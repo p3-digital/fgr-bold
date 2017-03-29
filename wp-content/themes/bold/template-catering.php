@@ -4,35 +4,25 @@
  */
 
 get_header();
+echo get_template_part( '/assets/template-parts/hero' );
+echo get_template_part( '/assets/template-parts/two-col' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1>  	
-		</div>
-	</div>
-</div>
 
-<section class="wrap-small">
-	<h4 class="text-center blue-text uppercase section-title"><?php the_field('tc_section_title'); ?></h4>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('left_column_text'); ?></p></div>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('right_column_text'); ?></p></div>
-</section>
 
 <section class="no-mobile-wrap">
 	<div class="inner-hero" style="background-image: url(<?php the_field('full_width_image');?> );">
-		<h2 class="text-center white didot"><?php the_field('image_overlay_text'); ?></h2>  	
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1"><h2 class="text-center white didot"><?php the_field('image_overlay_text'); ?></h2></div>	
 	</div>
 </section>
 <section class="wrap-small">
 	<h4 class="text-center blue-text section-title"><?php the_field('fw_section_title'); ?></h4>
 	<p class="desktop-center"><?php the_field('fw_section_content'); ?></p>
 </section>
-<section class="catering">
+<section class="catering grey-bg">
 	<div class="grey-bg pt">
 		<h4 class="text-center ce-title blue-text section-title"><?php the_field('es_section_title'); ?></h4>
 		<!-- tabs -->
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs hidden-sm">
 			<ul class="nav nav-tabs" role="tablist">
 				<?php
 				$ce = get_field('catered_experiences');
@@ -67,15 +57,15 @@ get_header();
 					$active = '';
 				}
 		?>
-			<div role="tabpanel" class="tab-pane catering-experience-tab experience-<?php echo $n; ?> <?php echo $active; ?>" id="index-<?php echo $n; ?>">
-				<h3 class="mobile-ce-section-toggle text-center hidden-sm hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
+			<div role="tabpanel" class="tab-pane catering-experience-tab experience-<?php echo $n; ?>" id="index-<?php echo $n; ?>">
+				<h3 class="mobile-ce-section-toggle text-center hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
 				<div class="ce-description">
 					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 						<p><?php echo $description; ?></p>
 					</div>
 				</div>
 				<div class="ce-inner-content">
-					<div class="col-xs-12 col-sm-6 ce-sidebar-wrap">
+					<div class="col-xs-12 col-md-6 ce-sidebar-wrap">
 						<div class="ce-inner-sidebar">
 							<h5 class="white didot">Explore <?php echo $title; ?></h5>
 							<h5 class="white didot">menu samples below:</h5>
@@ -90,15 +80,34 @@ get_header();
 											$active = '';
 										}
 								        $menu_title = get_sub_field('menu_title'); 
+								        $badChars = array(' ');
+										$menu = str_replace($badChars, '-', $menu_title);
 								?>
-										<li><a class="menu-experience white uppercase <?php echo $active; ?>" data-experience="experience-<?php echo $n; ?>" data-menu="menu-sample-<?php echo $g; ?>" href="#"><?php echo $menu_title; ?></a></li>
+										<li><a class="menu-experience white uppercase <?php echo $active; ?>" data-experience="experience-<?php echo $n; ?>" data-pdf="menu-<?php echo strtolower($menu); ?>" data-menu="menu-sample-<?php echo $g; ?>" href="#"><?php echo $menu_title; ?></a></li>
 								<?php 
 									$g++;
 									endwhile;
 								endif;
 								?>
 							</ul>
-							<a target="_blank" download href="<?php the_sub_field('menu_upload'); ?>" class="pdf-menu hidden-xs">print sample menus</a>	
+							<?php
+								if( have_rows('menu') ):
+									$d = 0;
+								    while ( have_rows('menu') ) : the_row();
+								    	if($d == 0){
+											$active = 'active';
+										}else{
+											$active = '';
+										}
+										$badChars = array(' ');
+										$menu = str_replace($badChars, '-', get_sub_field('menu_title'));
+								?>
+										<a target="_blank" id="menu-<?php echo strtolower($menu); ?>" download href="<?php the_sub_field('menu_upload'); ?>" class="<?php echo $active; ?> pdf-menu hidden-xs hidden-sm">print sample menus</a>
+								<?php 
+									$d++;
+									endwhile;
+								endif;
+								?>	
 						</div>
 					</div>
 					<?php
@@ -112,7 +121,7 @@ get_header();
 								}
 						        $menu_title = get_sub_field('menu_title'); 
 						?>
-							<div class="menu-wrapper col-xs-12 col-sm-6 <?php echo $active; ?>" id="menu-sample-<?php echo $h; ?>">
+							<div class="menu-wrapper col-xs-12 col-md-6 <?php echo $active; ?>" id="menu-sample-<?php echo $h; ?>">
 								<div class="menu">
 									<h4 class="red-text text-center uppercase"><?php echo $menu_title; ?></h4>
 									<?php
@@ -177,26 +186,28 @@ get_header();
 			<div class="col-xs-12 col-sm-4 related-cs">
 				<div class="col-xs-12" style="background-image: url(<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ) ?>);">
 					<div class="overlay">
-						<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
-						<?php
-						// check if the repeater field has rows of data
-						if( have_rows('sidebar_facts') ):
- 							// loop through the rows of data
-    							while ( have_rows('sidebar_facts') ) : the_row();
+						<div class="related-cs-wrap">
+							<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
+							<?php
+							// check if the repeater field has rows of data
+							if( have_rows('sidebar_facts') ):
+	 							// loop through the rows of data
+	    							while ( have_rows('sidebar_facts') ) : the_row();
 
-        							// display a sub field value
-								$val = get_sub_field('row_title');
-        							if( $val=='VENUE' ): 
-									?>
-						<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
-									<?php
-								endif;
-    							endwhile;
-						else :
-    							// no rows found
-						endif;
-						?>	
-						<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+	        							// display a sub field value
+									$val = get_sub_field('row_title');
+	        							if( $val=='VENUE' ): 
+										?>
+							<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
+										<?php
+									endif;
+	    							endwhile;
+							else :
+	    							// no rows found
+							endif;
+							?>	
+							<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+						</div>
 					</div>
 				</div>
 				<a href="<?php the_permalink(); ?>" class="hidden"><?php the_title(); ?></a>
@@ -210,10 +221,10 @@ get_header();
 </section>
 
 
-<section class="wrap">
-	<div class="grey-bg section">
-		<h4 class="text-center red-text section-title"><?php the_field('cta_section_title'); ?></h4>
-		<div class="wrap-small mb">
+<section class="section">
+	<div class="grey-bg no-mobile-wrap">
+		<h4 class="text-center red-text section-title wrap-small"><?php the_field('cta_section_title'); ?></h4>
+		<div class="wrap-small no-pt">
 			<p class="text-center"><?php the_field('section_content'); ?></p>
 		</div>
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">

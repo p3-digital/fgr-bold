@@ -4,41 +4,32 @@
  */
 
 get_header();
+
+
+echo get_template_part( '/assets/template-parts/hero' );
+echo get_template_part( '/assets/template-parts/two-col' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1>
-		</div>  	
-	</div>
-</div>
-
-<section class="wrap-small">
-	<h4 class="text-center blue-text uppercase section-title"><?php the_field('tc_section_title'); ?></h4>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('left_column_text'); ?></p></div>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('right_column_text'); ?></p></div>
-</section>
 
 
-<section class="wrap mt no-pad">
+
+<section class="wrap mt no-pad catering">
 	<div class="section pink-bg">
-		<div class="wrap-small no-pad">
+		<div class="wrap-small no-pt no-pb">
 			<h5 class="blue-text didot text-center"><?php echo the_field('testimonial'); ?></h3>
 		</div>
 	</div>
 </section>
-
 <section class="catering grey-bg">
-	<div class="pt">
+	<div class="grey-bg pt">
 		<h4 class="text-center ce-title blue-text section-title">WEDDING SERVICES</h4>
 		<!-- tabs -->
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs hidden-sm">
 			<ul class="nav nav-tabs" role="tablist">
 				<?php
-				$service = get_field('service');
-				if($service){
+				$ce = get_field('service');
+				if($ce){
 					$i = 0;
-					foreach($service as $row){
+					foreach($ce as $row){
 						if($i == 0){
 							$class = 'active';
 						}else{
@@ -52,7 +43,7 @@ get_header();
 			</ul>
 		</div>
 	</div>
-	<div class="tab-content ce-content masonry-wrap">
+	<div class="tab-content ce-content masonry-wrap grey-bg">
 		<?php
 		if( have_rows('service') ):
 			$i = 0;
@@ -65,9 +56,9 @@ get_header();
 		        	$class = '';
 		        }
 		?>	
-			<div role="tabpanel" class="tab-pane catering-experience-tab <?php echo $class; ?>" id="index-<?php echo $i; ?>">
-				<h3 class="mobile-ce-section-toggle text-center hidden-sm hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
-				<div class="section"><?php echo $description; ?></div>
+			<div role="tabpanel" class="tab-pane catering-experience-tab" id="index-<?php echo $i; ?>">
+				<h3 class="mobile-ce-section-toggle text-center hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
+				<div class="section"><div class="col-xs-12"><?php echo $description; ?></div></div>
 				<div class="clearfix"></div>
 				<div class="grid">
 					<?php
@@ -122,18 +113,28 @@ get_header();
 		<?php
 		if( have_rows('featured') ):
 		    while ( have_rows('featured') ) : the_row();
-		        $img = get_sub_field('logo'); 
-		        $page_type = get_sub_field('link_type');
-		        if ($page_type == 'page') {
-		        	$url = get_sub_field('page');
-		        	$target = '';
-		        }else{
-		        	$url = get_sub_field('custom_url');
-		        	$target = 'target="_blank"';
-		        }
+		        $logo = get_sub_field('logo'); 
 			?>
 			<div class="col-xs-12 col-sm-3 featured-image">
-				<a <?php echo $target; ?> href="<?php echo $url; ?>"><img src="<?php echo $img; ?>" alt="Featured"></a>
+				<?php
+				if ( get_sub_field('link_type') == 'page' ) {
+		        	$url = get_sub_field('page');?>
+		        	<a class="logo" href="<?php echo $url; ?>">
+						<img src="<?php echo $logo; ?>" alt="logo">
+					</a>
+		        <?php }else{ 
+		        	$url = get_sub_field('custom_url');
+		        	$target = 'target="_blank"';
+		        	if ($url !== '') { ?>
+		        		<a class="logo" <?php echo $target; ?> href="<?php echo $url; ?>">
+							<img src="<?php echo $logo; ?>" alt="logo">
+						</a>
+		        	<?php } else{ ?>
+						<p class="logo">
+							<img src="<?php echo $logo; ?>" alt="logo">
+						</p>
+		        	<?php } ?>
+		        <?php } ?>
 			</div>
 		<?php 
 			endwhile;
@@ -166,26 +167,28 @@ get_header();
 			<div class="col-xs-12 col-sm-4 related-cs">
 				<div class="col-xs-12" style="background-image: url(<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ) ?>);">
 					<div class="overlay">
-						<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
-						<?php
-						// check if the repeater field has rows of data
-						if( have_rows('sidebar_facts') ):
- 							// loop through the rows of data
-    							while ( have_rows('sidebar_facts') ) : the_row();
+						<div class="related-cs-wrap">
+							<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
+							<?php
+							// check if the repeater field has rows of data
+							if( have_rows('sidebar_facts') ):
+	 							// loop through the rows of data
+	    							while ( have_rows('sidebar_facts') ) : the_row();
 
-        							// display a sub field value
-								$val = get_sub_field('row_title');
-        							if( $val=='VENUE' ): 
-									?>
-						<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
-									<?php
-								endif;
-    							endwhile;
-						else :
-    							// no rows found
-						endif;
-						?>	
-						<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+	        							// display a sub field value
+									$val = get_sub_field('row_title');
+	        							if( $val=='VENUE' ): 
+										?>
+							<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
+										<?php
+									endif;
+	    							endwhile;
+							else :
+	    							// no rows found
+							endif;
+							?>	
+							<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+						</div>
 					</div>
 				</div>
 				<a href="<?php the_permalink(); ?>" class="hidden"><?php the_title(); ?></a>

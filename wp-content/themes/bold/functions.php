@@ -1,9 +1,8 @@
 <?php
 // Enqueuing custom javascript and stylesheets
 function bd_loadFiles() {
-	wp_enqueue_style( 'bootstrap-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' );
 	wp_enqueue_style( 'vjcss', get_template_directory_uri().'/vtourdata/lib/jquery-ui-1.11.1/jquery-ui.min.css' );
-	wp_enqueue_style( 'stylesheet', get_stylesheet_uri() );
+	// wp_enqueue_style( 'stylesheet', get_stylesheet_uri() );
 	wp_enqueue_style( 'dcss', get_template_directory_uri().'/darren.css' );
 	wp_enqueue_style( 'fonts-css', 'https://cloud.typography.com/7180776/6475772/css/fonts.css' );
 	wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Montserrat:400,700' );

@@ -4,14 +4,8 @@
  */
 
 get_header();
+echo get_template_part( '/assets/template-parts/hero' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1>  	
-		</div>
-	</div>
-</div>
 
 <section class="wrap-small">
 	<p class="text-center"><?php the_field('main_content'); ?></p>
@@ -21,7 +15,7 @@ get_header();
 	<div class="grey-bg pt">
 		<h4 class="text-center ce-title blue-text section-title">FEATURED VENUES</h4>
 		<!-- tabs -->
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 hidden-xs hidden-sm ">
 			<ul class="nav nav-tabs" role="tablist">
 				<?php
 				$ce = get_field('top_level_venues');
@@ -55,8 +49,8 @@ get_header();
 					$active = '';
 				}
 		?>
-			<div role="tabpanel" class="tab-pane catering-experience-tab experience-<?php echo $n; ?> <?php echo $active; ?>" id="index-<?php echo $n; ?>">
-				<h3 class="mobile-ce-section-toggle text-center hidden-sm hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
+			<div role="tabpanel" class="tab-pane catering-experience-tab experience-<?php echo $n; ?>" id="index-<?php echo $n; ?>">
+				<h3 class="mobile-ce-section-toggle text-center hidden-md hidden-lg"><a class="red-text" href="" class=""><?php echo $title; ?></a></h3>
 				<div class="ce-description venue-thumb">
 					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 						<p><?php echo $description; ?></p>
@@ -95,11 +89,11 @@ get_header();
 </section>
 
 
-<section class="wrap mt">
-	<div class="grey-bg section">
-		<h4 class="text-center red-text section-title"><?php the_field('all_venues_title'); ?></h4>
-		<p class="text-center"><?php the_field('all_venues_content'); ?></p>
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+<section class="section no-mobile-wrap no-pb">
+	<div class="grey-bg pb">
+		<h4 class="text-center red-text section-title pt"><?php the_field('all_venues_title'); ?></h4>
+		<div class="wrap-small no-pt"><p class="text-center"><?php the_field('all_venues_content'); ?></p></div>
+		<div class="wrap-small">
 			<?php
 			if( have_rows('all_atlanta_venues') ):
 				$i = 1;

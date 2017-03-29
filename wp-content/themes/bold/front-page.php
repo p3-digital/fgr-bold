@@ -2,7 +2,7 @@
 get_header();
 ?>
     	
-<div class="home-hero wrap">
+<div class="home-hero wrap hero-offset">
 	<?php 
 	$left_images = get_field('left_images' ); // get all the rows
 	$left_rand = $left_images[ array_rand( $left_images ) ]; // get a random row
@@ -34,7 +34,7 @@ get_header();
 		</div>
 	</div>
 	<div id="transparent-star-wrap">
-		<img class="hidden-xs" id="transparent-star" src="<?php echo get_template_directory_uri() . '/assets/img/transparent-star.png'; ?>" alt="Bold">
+		<img class="hidden-xs" id="transparent-star" src="<?php echo get_template_directory_uri() . '/assets/img/Bold-Logo-Star-White.svg'; ?>" alt="Bold">
 	</div>
 </div>
 
@@ -48,7 +48,7 @@ get_header();
 	</div>
 </section>
 
-<section class="wrap-small">
+<section class="pt wrap">
 	<?php
 	if( have_rows('block') ):
 	    while ( have_rows('block') ) : the_row();
@@ -79,22 +79,32 @@ get_header();
 </section>
 <div class="wrap">
 	<div class="section grey-bg">
-		<h4 class="uppercase text-center"><?php the_field('section_title'); ?></h4>
+		<h4 class="uppercase text-center blue-text"><?php the_field('section_title'); ?></h4>
 		<?php
 		if( have_rows('featured') ):
 		    while ( have_rows('featured') ) : the_row();
-		        $img = get_sub_field('logo'); 
-		        $page_type = get_sub_field('link_type');
-		        if ($page_type == 'page') {
-		        	$url = get_sub_field('page');
-		        	$target = '';
-		        }else{
-		        	$url = get_sub_field('custom_url');
-		        	$target = 'target="_blank"';
-		        }
+		        $logo = get_sub_field('logo'); 
 			?>
 			<div class="col-xs-12 col-sm-3 featured-image">
-				<a <?php echo $target; ?> href="<?php echo $url; ?>"><img src="<?php echo $img; ?>" alt="Featured"></a>
+				<?php
+				if ( get_sub_field('link_type') == 'page' ) {
+		        	$url = get_sub_field('page');?>
+		        	<a class="logo" href="<?php echo $url; ?>">
+						<img src="<?php echo $logo; ?>" alt="logo">
+					</a>
+		        <?php }else{ 
+		        	$url = get_sub_field('custom_url');
+		        	$target = 'target="_blank"';
+		        	if ($url !== '') { ?>
+		        		<a class="logo" <?php echo $target; ?> href="<?php echo $url; ?>">
+							<img src="<?php echo $logo; ?>" alt="logo">
+						</a>
+		        	<?php } else{ ?>
+						<p class="logo">
+							<img src="<?php echo $logo; ?>" alt="logo">
+						</p>
+		        	<?php } ?>
+		        <?php } ?>
 			</div>
 		<?php 
 			endwhile;

@@ -1,11 +1,11 @@
 <?php
-get_header()
+get_header();
 ?>
 
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
+<div class="no-mobile-wrap no-p hero-offset">
+	<div class="inner-hero inner-hero-big" style="background-image: url(<?php the_field('hero_image');?> );">
 		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1> 
+			<h1 class="uppercase text-center white"><?php the_title(); ?></h1> 
 			<?php
 			 	$cs_term = get_the_terms($post->ID, 'cs_category');
 			 	$cs_term_slug = $cs_term[0]->slug;
@@ -107,12 +107,10 @@ get_header()
 
 	  <!-- Controls -->
 	  <a class="left carousel-control hidden-xs" href="#case-study-carousel" role="button" data-slide="prev">
-	    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-	    <span class="sr-only">Previous</span>
+	    <img src="/wp-content/themes/bold/assets/img/Slider-Left-Arrow.svg" alt="Next">
 	  </a>
 	  <a class="right carousel-control hidden-xs" href="#case-study-carousel" role="button" data-slide="next">
-	    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-	    <span class="sr-only">Next</span>
+	    <img src="/wp-content/themes/bold/assets/img/Slider-Right-Arrow.svg" alt="Next">
 	  </a>
 	</div>
 </section>
@@ -124,8 +122,8 @@ get_header()
 	</div>
 </section>
 
-<section class="fce-section wrap-small">
-	<h4 class="text-center uppercase blue-text section-title">SIMILAR EVENTS</h4>
+<section class="wrap-small fce-section text-center">
+	<h4 class="text-center uppercase blue-text section-title">Featured Catered Events</h4>
 	<?php
 	$args = array(
 		'post_type' => 'case_study',
@@ -144,11 +142,30 @@ get_header()
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();?>
 			<div class="col-xs-12 col-sm-4 related-cs">
-				<div class="col-xs-12" style="background-image: url(<?php the_field('hero_image', $post->ID); ?>);">
+				<div class="col-xs-12" style="background-image: url(<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ) ?>);">
 					<div class="overlay">
-						<h5 class="didot white text-center"><?php the_title(); ?></h5>
-						<h6 class="white uppercase text-center">Venue</h6>	
-						<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+						<div class="related-cs-wrap">
+							<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
+							<?php
+							// check if the repeater field has rows of data
+							if( have_rows('sidebar_facts') ):
+	 							// loop through the rows of data
+	    							while ( have_rows('sidebar_facts') ) : the_row();
+
+	        							// display a sub field value
+									$val = get_sub_field('row_title');
+	        							if( $val=='VENUE' ): 
+										?>
+							<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
+										<?php
+									endif;
+	    							endwhile;
+							else :
+	    							// no rows found
+							endif;
+							?>	
+							<h5 class="didot white text-center"><?php the_field('venue',$post->ID); ?></h5>
+						</div>
 					</div>
 				</div>
 				<a href="<?php the_permalink(); ?>" class="hidden"><?php the_title(); ?></a>

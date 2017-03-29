@@ -4,14 +4,8 @@
  */
 
 get_header();
+echo get_template_part( '/assets/template-parts/hero' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1>
-		</div>  	
-	</div>
-</div>
 
 <section class="wrap">
 	<h4 class="text-center blue-text uppercase section-title"><?php the_field('section_title'); ?></h4>
@@ -34,7 +28,7 @@ get_header();
 		if ( $the_query->have_posts() ) {
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post(); ?>
-				<div data-leader="<?php echo $i; ?>" data-row="<?php echo $row_index; ?>" class="col-xs-12 col-sm-6 col-md-3 leader-thumb" style="background-image: url(<?php echo wp_get_attachment_url(get_post_thumbnail_id()); ?>">
+				<div data-leader="<?php echo $i; ?>" data-row="<?php echo $row_index; ?>" class="col-xs-12 col-sm-6 col-md-3 leader-thumb" style="background-image: url(<?php echo wp_get_attachment_url(get_post_thumbnail_id()); ?>)">
 					<div class="leader-content">
 						<h5 class="didot white text-center leader-name"><?php the_title(); ?></h5>
 						<h6 class="uppercase white text-center leader-title"><?php the_field('title'); ?></h6>
@@ -53,7 +47,6 @@ get_header();
 						<?php endif ?>
 						<?php if ( get_field('email') !== '' ): ?>
 							<a href="mailto:<?php the_field('email'); ?>" class="email">Email</a>
-							xxx
 						<?php endif ?>
 					</div>
 				</div>

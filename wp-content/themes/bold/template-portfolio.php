@@ -4,16 +4,10 @@
  */
 
 get_header();
+echo get_template_part( '/assets/template-parts/hero' );
 ?>
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase"><?php the_title(); ?></h1>  
-		</div>	
-	</div>
-</div>
 
-<section class="filter-wrap col-xs-12 col-sm-8 col-sm-offset-2 hidden-xs">
+<section class="filter-wrap col-xs-12 col-md-10 col-md-offset-1 hidden-xs">
 	<p class="filter-label red-text uppercase">Filter By: </p>
 	<a class="red-text uppercase" data-id="all">All</a>
 	<?php
@@ -38,12 +32,13 @@ get_header();
 </section>
 
 
-<section class="wrap-small fce-section">
+<section class="wrap-xs fce-section">
 	<?php
 	$args = array(
 		'post_type' => 'case_study',
 		'posts_per_page' => -1,
-		'order' => 'desc'
+		'order' => 'ASC',
+	    'orderby' => 'menu_order'
 		);
 	$the_query = new WP_Query( $args );
 	if ( $the_query->have_posts() ) {
@@ -60,31 +55,33 @@ get_header();
 			<div class="col-xs-12 col-sm-4 related-cs <?php echo $class; ?>">
 				<div class="col-xs-12" style="background-image: url(<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ) ?>);">
 					<div class="overlay">
+						<div class="related-cs-wrap">
 						<h5 class="didot white text-center"><?php the_field('thumbnail_subtitle');?></h5>
-<?php
+							<?php
 
-// check if the repeater field has rows of data
-if( have_rows('sidebar_facts') ):
+							// check if the repeater field has rows of data
+							if( have_rows('sidebar_facts') ):
 
- 	// loop through the rows of data
-    while ( have_rows('sidebar_facts') ) : the_row();
+							 	// loop through the rows of data
+							    while ( have_rows('sidebar_facts') ) : the_row();
 
-        // display a sub field value
-	$val = get_sub_field('row_title');
-        if( $val=='VENUE' ): 
-	?>
-		<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
-	<?php
-	endif;
-    endwhile;
+							        // display a sub field value
+								$val = get_sub_field('row_title');
+							        if( $val=='VENUE' ): 
+								?>
+									<h6 class="white uppercase text-center"><?php echo the_sub_field('row_fact'); ?></h6>
+								<?php
+								endif;
+							    endwhile;
 
-else :
+							else :
 
-    // no rows found
+							    // no rows found
 
-endif;
+							endif;
 
-?>	
+							?>	
+						</div>
 					</div>
 				</div>
 				<a href="<?php the_permalink(); ?>" class="hidden"><?php the_title(); ?></a>

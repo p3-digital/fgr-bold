@@ -6,7 +6,7 @@
 get_header();
 ?>
 
-<div class="no-mobile-wrap">
+<div class="no-mobile-wrap hero-offset hero">
 	<div class="inner-hero inner-hero-big" style="background-image: url(<?php the_field('hero_image');?> );">
 		<div class="hero-overlay">
 			<h1 class="uppercase text-center white"><?php the_title(); ?></h1>
@@ -33,20 +33,22 @@ get_header();
 
 <section class="wrap-small">
 	<h4 class="text-center blue-text uppercase section-title">Features</h4>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('left_column_text'); ?></p></div>
-	<div class="col-xs-12 col-sm-6"><p><?php the_field('right_column_text'); ?></p></div>
-	<div class="clearfix"></div>
-	<div class="center-btn"><a href="/contact" class="main-btn-blue main-btn-xxl mt"><?php the_field('book_button_text'); ?></a></div>
+	<div class="cols">
+		<div class="col-xs-12"><?php the_field('left_column_text'); ?></div>
+	</div>
+</section>
+<div class="clearfix"></div>
+<section class="section no-pb">
+	<div class="center-btn"><a href="/contact" class="main-btn-blue main-btn-xxl no-mt"><?php the_field('book_button_text'); ?></a></div>
 </section>
 
-
-<section class="wrap">
-	<div class="grey-bg section">
-		<h4 class="text-center red-text section-title uppercase">Premium Partners</h4>
-		<p class="text-center mb"><?php the_field('premium_partners_text'); ?></p>
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-			<div class="center-btn"><a href="/premium-partners" class="main-btn-red main-btn-xl">VIEW ALL ATLANTA VENUES</a></div>
+<section class="section no-mobile-wrap">
+	<div class="grey-bg pb">
+		<h4 class="text-center red-text section-title uppercase wrap-small">Premium Partners</h4>
+		<div class="wrap-small no-pt">
+			<p class="text-center"><?php the_field('premium_partners_text'); ?></p>
 		</div>
+		<div class="center-btn"><a href="/premium-partners" class="main-btn-red main-btn-xl">VIEW ALL ATLANTA VENUES</a></div>
 	</div>
 </section>
 

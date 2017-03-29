@@ -5,7 +5,7 @@ $page_id = get_the_ID();
 <html <?php language_attributes(); ?>>
 	<head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<meta name="viewport" content="width=device-width" />
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>" />
 	<?php wp_head(); ?>
 </head>
@@ -73,7 +73,7 @@ $page_id = get_the_ID();
 		      	<div class="desktop-logo hidden-xs hidden-sm">
 					<a href="<?php echo site_url(); ?>"><img src="<?php the_field('desktop_logo','option'); ?>" alt="Bold | Fifth Group"></a>
 				</div>
-				<section class="mt social hidden-sm hidden-md hidden-lg">
+				<section class="mt social hidden-md hidden-lg">
 					<?php
 					//socials
 					if( have_rows('social_icons', 'option') ):

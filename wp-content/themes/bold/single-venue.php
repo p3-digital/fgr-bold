@@ -1,14 +1,8 @@
 <?php
-get_header()
+get_header();
+echo get_template_part( '/assets/template-parts/hero' );
 ?>
 
-<div class="no-mobile-wrap">
-	<div class="page-hero" style="background-image: url(<?php the_field('hero_image');?> );">
-		<div class="hero-overlay">
-			<h1 class="uppercase">PREMIUM PARTNER: <?php the_title(); ?></h1>
-		</div> 		 	    	 	
-	</div>
-</div>
 
 <section class="wrap-small">
 	<div class="col-xs-12 col-sm-4 cs-facts">
@@ -105,12 +99,10 @@ get_header()
 
 	  <!-- Controls -->
 	  <a class="left carousel-control hidden-xs" href="#case-study-carousel" role="button" data-slide="prev">
-	    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-	    <span class="sr-only">Previous</span>
+	    <img src="/wp-content/themes/bold/assets/img/Slider-Left-Arrow.svg" alt="Next">
 	  </a>
 	  <a class="right carousel-control hidden-xs" href="#case-study-carousel" role="button" data-slide="next">
-	    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-	    <span class="sr-only">Next</span>
+	   <img src="/wp-content/themes/bold/assets/img/Slider-Right-Arrow.svg" alt="Next">
 	  </a>
 	</div>
 </section>
@@ -132,18 +124,23 @@ get_header()
 		);
 	$the_query = new WP_Query( $args );
 	if ( $the_query->have_posts() ) {
+		$i = 1;
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();?>
 			<div class="col-xs-12 col-sm-4 venue-thumb featured-venue-padded">
 				<img src="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ) ?>" alt="<?php echo the_title(); ?>">	
 				<h3 class="red-text didot text-center venue-header"><?php echo the_title(); ?></h3>
-				<?php
-				$excerpt = get_the_excerpt();
-				$string = substr($excerpt, 0, 200)."...";
-				?>
-				<div class="content"><p><?php echo $string; ?> <a href="<?php the_permalink(); ?>" class="red-text underline uppercase">Read More</a></p></div>
+				<div class="content">
+					<div><?php the_field('excerpt'); ?></div>
+					<p><a href="<?php the_permalink(); ?>" class="red-text underline">Explore <?php the_title(); ?></a></p>
+				</div>
 			</div>
-		<?php }
+		<?php 
+		if ($i % 3 == 0) {
+			echo '<div class="clearfix"></div>';
+		}
+			$i++;
+		}
 		wp_reset_postdata();
 	}
 	?>

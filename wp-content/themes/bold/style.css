@@ -586,7 +586,7 @@ header
 		-o-background-size: contain;
 		background-size: contain;
 		background-repeat: no-repeat;
-		background-image: url(/wp-content/themes/bold/assets/img/Bold-Logo-Star.svg);
+		background-image: url(/wp-content/themes/bold/assets/img/bold-Logo-Star.svg);
 
 	}
 	#main-navigation .nav>li.home-nav-item a{
@@ -943,7 +943,7 @@ Catering page
 .menu-wrapper.active{display: block;}
 .pdf-menu{
 	padding: 15px 0 20px 30px !important;
-	background-image: url(/wp-content/themes/bold/assets/img/Bold-Icon-Print.svg);
+	background-image: url(/wp-content/themes/bold/assets/img/bold-Icon-Print.svg);
 	-webkit-background-size: 10%;
 	-moz-background-size: 10%;
 	-ms-background-size: 10%;
@@ -1015,7 +1015,7 @@ Catering page
 		width: 50;
 	}
 	.ce-inner-content{
-		background-image: url(/wp-content/themes/bold/assets/img/Bold-Catering-MenuBkgd_768.jpg);
+		background-image: url(/wp-content/themes/bold/assets/img/bold-Catering-MenuBkgd_768.jpg);
 		background-position: center center;
 	}
 }
@@ -1748,7 +1748,7 @@ select{
 	.contact-info{
 		padding-bottom: 35px;
 	}
-	.contact-info{background-image: url(/wp-content/themes/bold/assets/img/Bold-Contact-ATL.jpg);}
+	.contact-info{background-image: url(/wp-content/themes/bold/assets/img/bold-Contact-ATL.jpg);}
 	.contact-info-block {
 	    margin-bottom: 400px;
 	}
@@ -1863,6 +1863,7 @@ footer a:hover{
 .go-to-top img{
 	height: 45px;
 }
+
 @media (min-width: 768px) {
 	.foot-cta .foot-btn{
 		float: left;

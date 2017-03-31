@@ -88,7 +88,7 @@
 				<a target="_blank" href="<?php the_field('site_link', 'option'); ?>"><img src="<?php the_field('site_logo', 'option'); ?>" class="footer-logo" alt="Site logo"></a>
 			</div>
 			<div class="col-xs-12 col-sm-6">
-				<a class="pull-right go-to-top" href="#top"><img src="<?php echo get_template_directory_uri() . '/assets/img/Bold-Logo-Star.svg'; ?>" alt="Site logo"></a>
+				<a class="pull-right go-to-top" href="#top"><img src="<?php echo get_template_directory_uri() . '/assets/img/bold-Logo-Star.svg'; ?>" alt="Site logo"></a>
 			</div>
 		</div>
 		<div class="col-xs-12">
@@ -101,7 +101,7 @@
 			<a href="/contact" class="transparent-white-btn uppercase">Contact Us</a>
 		</div>
 		<div class="col-xs-12 pt">
-			<a class="go-to-top mobile-top" href="#top"><img src="<?php echo get_template_directory_uri() . '/assets/img/Bold-Logo-Star-White.svg'; ?>" alt="Site logo"></a>
+			<a class="go-to-top mobile-top" href="#top"><img src="<?php echo get_template_directory_uri() . '/assets/img/bold-Logo-Star-White.svg'; ?>" alt="Site logo"></a>
 		</div>
 	</div>
 </footer>

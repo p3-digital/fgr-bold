@@ -34,7 +34,7 @@ get_header();
 		</div>
 	</div>
 	<div id="transparent-star-wrap">
-		<img class="hidden-xs" id="transparent-star" src="<?php echo get_template_directory_uri() . '/assets/img/Bold-Logo-Star-White.svg'; ?>" alt="Bold">
+		<img class="hidden-xs" id="transparent-star" src="<?php echo get_template_directory_uri() . '/assets/img/bold-Logo-Star-White.svg'; ?>" alt="Bold">
 	</div>
 </div>
 
